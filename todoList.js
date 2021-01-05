@@ -100,6 +100,37 @@ class TodoList {
     return displayText;
   }
 
+  toArray() {
+    return this.todos.slice();
+  }
+
+  findByTitle(title) {
+    return this.filter(todo => todo.getTitle() === title).first();
+  }
+
+  allDone() {
+    return this.filter(todo => todo.isDone());
+  }
+
+  allNotDone() {
+    return this.filter(todo => !todo.isDone());
+  }
+
+  markDone(title) {
+    let todo = this.findByTitle(title);
+    if (todo !== undefined) {
+      todo.markDone();
+    }
+  }
+
+  markAllDone() {
+    this.forEach(todo => todo.markDone());
+  }
+
+  markAllUndone() {
+    this.forEach(todo => todo.markUndone());
+  }
+
   forEach(callback) {
     this.todos.forEach(callback);
   }
@@ -133,9 +164,20 @@ list.add(todo6);
 todo1.markDone();
 todo5.markDone();
 
-console.log(list);
-console.log(list.first());
-let doneTodos = list.filter(todo => todo.isDone());
-console.log(doneTodos);
-let test = list.filter(todo => todo.isDone()).first();
-console.log(test);
+// console.log(list);
+// console.log(list.first());
+// let doneTodos = list.filter(todo => todo.isDone());
+// console.log(doneTodos);
+// let test = list.filter(todo => todo.isDone()).first();
+// console.log(test);
+
+// console.log(list.findByTitle('Go shopdsfping'));
+list.markDone("Study for Launch School");
+console.log(list.allDone());
+console.log(list.allNotDone());
+
+list.markAllDone();
+console.log(list.allDone());
+list.markAllUndone();
+console.log(list.allNotDone());
+console.log(list.toArray());
